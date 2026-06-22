@@ -1,5 +1,7 @@
-/* HISTORIAL NAVEGACIÓN */
+/* CONFIGURACIÓN DE URL */
+const API_BASE_URL = "https://online-doggie-categorias.onrender.com";
 
+/* HISTORIAL NAVEGACIÓN */
 function registrarNavegacion(producto) {
     let historial = JSON.parse(localStorage.getItem("historial-nav")) || [];
 
@@ -25,7 +27,7 @@ function mostrarHistorialNav() {
         const div = document.createElement("div");
         div.classList.add("producto");
         div.innerHTML = `
-            <img src="https://online-doggie-backend-production.up.railway.app/assets/img/${producto.imagen}" alt="${producto.nombre}">
+            <img src="${API_BASE_URL}/assets/img/${producto.imagen}" alt="${producto.nombre}">
             <h3>${producto.nombre}</h3>
             <p class="precio">$${Number(producto.precio).toLocaleString("es-CO")}</p>
             <a href="productos.html" class="btn-agregar">Ver productos</a>
@@ -38,9 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrarHistorialNav();
 });
 
-
 /* CALIFICACIÓN SERVICIO */
-
 let calificacionSeleccionada = 0;
 
 function seleccionarCalificacion(valor) {
@@ -68,11 +68,8 @@ function enviarCalificacion() {
     estrellas.forEach(e => e.textContent = "☆");
 }
 
-
 /* FORMULARIO CONTACTO */
-
 document.getElementById("form-contacto").addEventListener("submit", async (e) => {
-
     e.preventDefault();
 
     const nombre  = document.getElementById("contacto-nombre").value.trim();
@@ -94,8 +91,7 @@ document.getElementById("form-contacto").addEventListener("submit", async (e) =>
     }
 
     try {
-
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/contacto", {
+        const respuesta = await fetch(`${API_BASE_URL}/api/contacto`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ nombre, email, mensaje })
@@ -111,19 +107,14 @@ document.getElementById("form-contacto").addEventListener("submit", async (e) =>
             msgEl.textContent = data.mensaje || "Error al enviar mensaje";
             msgEl.style.color = "red";
         }
-
     } catch (error) {
         msgEl.textContent = "Error conectando con el servidor";
         msgEl.style.color = "red";
     }
-
 });
 
-
 /* BOLETÍN DE NOTICIAS */
-
 document.getElementById("form-boletin").addEventListener("submit", async (e) => {
-
     e.preventDefault();
 
     const email = document.getElementById("boletin-email").value.trim();
@@ -143,8 +134,7 @@ document.getElementById("form-boletin").addEventListener("submit", async (e) => 
     }
 
     try {
-
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/boletin", {
+        const respuesta = await fetch(`${API_BASE_URL}/api/boletin`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email })
@@ -160,10 +150,8 @@ document.getElementById("form-boletin").addEventListener("submit", async (e) => 
             msgEl.textContent = data.mensaje || "Error al suscribirse";
             msgEl.style.color = "red";
         }
-
     } catch (error) {
         msgEl.textContent = "Error conectando con el servidor";
         msgEl.style.color = "red";
     }
-
 });
