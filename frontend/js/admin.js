@@ -1,11 +1,8 @@
 // ==========================================================================
 // CONFIGURACIÓN GLOBAL Y AUTENTICACIÓN
 // ==========================================================================
-// DESARROLLO LOCAL: Apunta a tu computadora
+// CENTRALIZACIÓN DE LA API: Cambia esta URL cuando desees apuntar a producción (Render)
 const API_BASE_URL = "http://localhost:3000/api";
-
-// Nota: Cuando vayas a subirlo a Render, solo tendrás que cambiar la línea de arriba por la URL que te dé Render, ej:
-// const API_BASE_URL = "https://tu-backend-en-render.onrender.com/api";
 
 // Usamos el token global ya declarado en el HTML o lo recuperamos de forma segura
 if (!window.token) {
@@ -166,7 +163,7 @@ async function actualizarStock(id) {
             Swal.fire('Error', data.error || "No se pudo actualizar el stock", 'error');
         }
     } catch (error) {
-        console.error("Error actualizando stock:", error);
+        console.error("Error actuallizando stock:", error);
     }
 }
 
@@ -190,10 +187,11 @@ function renderTablaProductos(productos) {
 
     tbody.innerHTML = "";
     productos.forEach(producto => {
-        // Ajustamos las imágenes para que busquen en el backend local por ahora
+        // Extraemos el dominio base removiendo el '/api' para apuntar correctamente a la carpeta de uploads
+        const baseHost = API_BASE_URL.replace('/api', '');
         const imagenUrl = producto.imagen
-            ? `http://localhost:3000/uploads/${producto.imagen}`
-            : 'http://localhost:3000/uploads/ONLINE-DOGGIE ICO.ico';
+            ? `${baseHost}/uploads/${producto.imagen}`
+            : `${baseHost}/uploads/ONLINE-DOGGIE ICO.ico`;
 
         tbody.innerHTML += `
             <tr>
@@ -333,8 +331,9 @@ function editarProducto(id) {
 
     const previewEdit = document.getElementById("edit-preview");
     if (previewEdit) {
+        const baseHost = API_BASE_URL.replace('/api', '');
         if (producto.imagen) {
-            previewEdit.src = `http://localhost:3000/uploads/${producto.imagen}`;
+            previewEdit.src = `${baseHost}/uploads/${producto.imagen}`;
             previewEdit.style.display = "block";
         } else {
             previewEdit.src = "";
@@ -431,7 +430,6 @@ async function eliminarProducto(id) {
                     method: "DELETE",
                     headers: { "Authorization": "Bearer " + accessToken }
                 });
-
                 const data = await respuesta.json();
 
                 if (!respuesta.ok) {
@@ -496,7 +494,6 @@ function cerrarMenu() {
 
 if (closeDrawerBtn) closeDrawerBtn.addEventListener("click", cerrarMenu);
 if (overlay) overlay.addEventListener("click", cerrarMenu);
-
 menuItems.forEach(item => {
     item.addEventListener("click", function () {
         const objetivo = this.getAttribute("data-target");
@@ -520,6 +517,7 @@ async function cambiarRolUsuario(accion) {
     const url = accion === "promover"
         ? `${API_BASE_URL}/admin/promover`
         : `${API_BASE_URL}/admin/degradar`;
+
     try {
         const respuesta = await fetch(url, {
             method: "POST",
@@ -620,7 +618,6 @@ function inicializarHistorialCompras() {
                 method: "GET",
                 headers: { "Authorization": `Bearer ${accessToken}` }
             });
-
             const datos = await respuesta.json();
 
             if (!respuesta.ok) {
@@ -845,6 +842,7 @@ async function actualizarEstadoPedido(id) {
 const tablaCatBody = document.getElementById('tabla-categorias-admin-body');
 const formCat = document.getElementById('form-categoria-admin');
 const inputCatNombre = document.getElementById('input-categoria-nombre');
+
 async function consultarCategoriasAdmin() {
     try {
         const respuesta = await fetch(`${API_BASE_URL}/categorias`);
@@ -889,7 +887,6 @@ if (formCat) {
                 },
                 body: JSON.stringify({ nombre })
             });
-
             const datos = await res.json();
 
             if (!res.ok) {
@@ -898,7 +895,7 @@ if (formCat) {
                 mostrarToast("✅ Categoría registrada con éxito en Online Doggie");
                 inputCatNombre.value = '';
                 consultarCategoriasAdmin();
-                cargarCategoriasSelect(); 
+                cargarCategoriasSelect();
             }
         } catch (error) {
             Swal.fire('Error de red', "Fallo al conectar con el servidor.", 'error');
@@ -949,5 +946,5 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarCategoriasSelect();
     cargarPedidos();
     inicializarHistorialCompras();
-    consultarCategoriasAdmin(); 
+    consultarCategoriasAdmin();
 });
