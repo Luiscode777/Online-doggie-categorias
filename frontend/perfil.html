@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Online Doggie</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="https://online-doggie-backend-production.up.railway.app/uploads/ONLINE-DOGGIE%20ICO.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        if (!localStorage.getItem('token')) {
+            window.location.replace('login.html');
+        }
+    </script>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <img src="https://online-doggie-backend-production.up.railway.app/uploads/ONLINE-DOGGIE%20ICO.ico" alt="Logo Online Doggie">
+            <h1>Online Doggie</h1>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+    <section class="perfil-container">
+        
+        <div class="perfil-col-izquierda">
+            <div class="perfil-seccion">
+                <h3><i class="fa-solid fa-id-card"></i> Datos de la Cuenta</h3>
+                <div class="perfil-card-avatar">
+                    <div class="avatar-placeholder">🐶</div>
+                    <h4 id="perfil-nombre-header">Cargando...</h4>
+                </div>
+                <div class="perfil-card">
+                    <p><i class="fa-solid fa-user"></i> <strong>Nombre:</strong> <span id="perfil-nombre">Cargando...</span></p>
+                    <p><i class="fa-solid fa-envelope"></i> <strong>Email:</strong> <span id="perfil-email">Cargando...</span></p>
+                    <p><i class="fa-solid fa-shield-halved"></i> <strong>Rol:</strong> <span id="perfil-rol" class="badge-rol">Cargando...</span></p>
+                </div>
+                <button id="logout-btn" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</button>
+            </div>
+        </div>
+
+        <div class="perfil-col-derecha">
+            
+            <div id="vista-configuracion" class="vista-seccion-perfil">
+                <div class="perfil-seccion">
+                    <h3><i class="fa-solid fa-location-dot"></i> Dirección de Entrega</h3>
+                    <input type="text" id="input-direccion" placeholder="Ej: Calle 44 # 127 sur - 83">
+                    <button onclick="guardarDireccion()" class="btn btn-primary">Actualizar dirección</button>
+                </div>
+
+                <div class="perfil-seccion">
+                    <h3><i class="fa-solid fa-user-pen"></i> Editar Información Personal</h3>
+                    <form id="form-editar-perfil">
+                        <input type="text" id="edit-nombre" required>
+                        <input type="email" id="edit-email" required>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="vista-historial" class="vista-seccion-perfil">
+                <div class="perfil-seccion">
+                    <h3><i class="fa-solid fa-clock-history"></i> Mi Historial de Compras</h3>
+                    <div class="tabla-perfil-container">
+                        <table class="tabla-perfil-diseno">
+                            <thead>
+                                <tr><th>Producto</th><th>Precio</th><th>Cant.</th><th>Estado</th></tr>
+                            </thead>
+                            <tbody id="historial-compras-tabla-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+    <div class="fab-container">
+        <button class="floating-btn" id="main-fab-btn"><i class="fa-solid fa-bars"></i></button>
+    </div>
+
+    <div id="perfil-drawer" class="admin-drawer">
+        <div class="drawer-header"><h3>Menú Perfil</h3><button id="close-drawer">✕</button></div>
+        <ul class="drawer-menu">
+            <li class="menu-item" data-target="vista-configuracion">⚙️ Configuración</li>
+            <li class="menu-item" data-target="vista-historial">📜 Historial de Pedidos</li>
+        </ul>
+    </div>
+
+    <script src="./js/usuario-navbar.js"></script>
+    <script src="./js/perfil.js"></script>
+    <script>
+        // Lógica simple para alternar vistas (puedes poner esto en tu perfil.js si prefieres)
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.vista-seccion-perfil').forEach(v => v.classList.remove('activa'));
+                document.getElementById(item.dataset.target).classList.add('activa');
+                document.getElementById('perfil-drawer').classList.remove('abierto');
+            });
+        });
+        document.getElementById('main-fab-btn').onclick = () => document.getElementById('perfil-drawer').classList.add('abierto');
+        document.getElementById('close-drawer').onclick = () => document.getElementById('perfil-drawer').classList.remove('abierto');
+    </script>
+</body>
+</html>

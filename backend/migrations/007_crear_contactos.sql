@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS contactos (
+    id BIGSERIAL PRIMARY KEY,
+
+    usuario_id BIGINT
+        REFERENCES usuarios(id)
+        ON DELETE SET NULL,
+
+    mensaje TEXT NOT NULL,
+
+    leido BOOLEAN DEFAULT FALSE,
+
+    fecha TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);

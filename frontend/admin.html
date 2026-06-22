@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador - Online Doggie</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="https://online-doggie-backend-production.up.railway.app/uploads/ONLINE-DOGGIE%20ICO.ico" type="image/x-icon">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const token = localStorage.getItem('token');
+        const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+        
+        if (!token || usuario.rol !== 'admin') {
+            window.location.replace('index.html');
+        }
+    </script>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <img src="https://online-doggie-backend-production.up.railway.app/uploads/ONLINE-DOGGIE%20ICO.ico" alt="Logo Online Doggie">
+            <h1>Online Doggie</h1>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="admin-panel">
+        <h1>Panel de Administración</h1>
+
+        <div id="vista-metricas" class="vista-seccion activa">
+            <div class="admin-metricas">
+                <h2>📊 Panel de Estadísticas Globales</h2>
+                <div id="metricas-grid" class="metricas-grid">
+                    <div class="metrica-card">
+                        <h3>Productos activos</h3>
+                        <p id="met-productos">-</p>
+                    </div>
+                    <div class="metrica-card">
+                        <h3>Usuarios registrados</h3>
+                        <p id="met-usuarios">-</p>
+                    </div>
+                    <div class="metrica-card">
+                        <h3>Total en ventas</h3>
+                        <p id="met-ventas">-</p>
+                    </div>
+                </div>
+
+                <div class="grafica-container">
+                    <canvas id="graficaMetricas"></canvas>
+                </div>
+            </div>
+
+            <div class="admin-alertas" id="admin-alertas">
+                <h2>⚠️ Alertas de stock bajo</h2>
+                <div id="lista-alertas">
+                    <p class="sin-alertas">Cargando alertas...</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="vista-categorias" class="vista-seccion">
+            <div class="admin-form">
+                <h2>🏷️ Gestión de Categorías del Catálogo</h2>
+                <p>Crea nuevas clasificaciones para tus productos o elimina aquellas que ya no utilices.</p>
+                
+                <form id="form-categoria-admin" style="margin-bottom: 2rem;">
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="input-categoria-nombre" placeholder="Nombre de la nueva categoría (ej. Snacks, Juguetes)" required style="flex: 1;">
+                        <button type="submit" style="width: auto; margin-top: 0; padding: 0 20px;">Agregar</button>
+                    </div>
+                </form>
+
+                <div class="admin-productos-tabla-wrapper" style="margin-top: 1rem; box-shadow: none; padding: 0;">
+                    <table class="tabla-admin">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre de la Categoría</th>
+                                <th style="text-align: center;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-categorias-admin-body">
+                            <tr>
+                                <td colspan="3" style="text-align: center;">Cargando categorías...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="vista-productos" class="vista-seccion">
+            <div class="admin-form">
+                <h2>Crear producto</h2>
+                <form id="form-producto">
+                    <input type="text" id="nombre" placeholder="Nombre del producto" required>
+                    <input type="text" id="descripcion" placeholder="Descripción" required>
+                    <input type="number" id="precio" placeholder="Precio" required>
+                    <select id="categoria" required>
+                        <option value="">Selecciona una categoría</option>
+                    </select>
+                    <input type="number" id="stock" placeholder="Stock" required>
+
+                    <div class="upload-box" id="upload-box">
+                        <input type="file" id="imagen" accept="image/*" hidden>
+                        <div class="upload-content">
+                            <p>📷 Subir imagen del producto</p>
+                            <span>Haz clic o arrastra una imagen aquí</span>
+                        </div>
+                        <img id="preview" class="preview-img">
+                    </div>
+                    <button type="submit">Crear Producto</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="vista-editar-productos" class="vista-seccion">
+            <div class="admin-productos-tabla-wrapper">
+                <h2>📦 Gestión del Catálogo</h2>
+                <div class="filtros">
+                    <input type="text" id="filtro-nombre" class="buscador" placeholder="Buscar por nombre...">
+                    <select id="filtro-categoria" class="select-filtro">
+                        <option value="">Todas las categorías</option>
+                    </select>
+                </div>
+                <table class="tabla-admin">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-productos-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="vista-pedidos" class="vista-seccion">
+            <div class="admin-pedidos">
+                <h2>🚚 Gestión de Pedidos y Envíos</h2>
+                <p>Cambia el estado de cada pedido para que el cliente lo vea en su perfil.</p>
+                <div id="lista-pedidos-admin">
+                    <p>Cargando pedidos...</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="vista-usuarios" class="vista-seccion">
+            <div class="admin-form">
+                <h2>👥 Gestión de Editar Usuarios</h2>
+                <form id="form-nuevo-admin">
+                    <div class="form-group">
+                        <label>Correo del usuario a gestionar:</label>
+                        <input type="email" id="admin-email" placeholder="ejemplo@correo.com" required>
+                    </div>
+                    <div class="botones-usuarios-grid">
+                        <button type="button" id="btn-promover" class="btn-usuario-accion">Promover a Admin</button>
+                        <button type="button" id="btn-degradar" class="btn-usuario-accion">Pasar a Usuario</button>
+                        <button type="button" id="btn-eliminar" class="btn-usuario-accion">Eliminar Usuario</button>
+                    </div>
+                </form>
+            </div>
+        </div> 
+        
+        <div id="vista-historial-compras" class="vista-seccion">
+            <div class="admin-historial-box">
+                <h2>🔍 Consulta de Historial de Compras Global</h2>
+                <p>Busque y despliegue las transacciones comerciales ejecutadas por cualquier cliente del sistema.</p>
+                <div class="buscar-historial-form">
+                    <input type="email" id="buscar-historial-email" placeholder="Ingrese el correo exacto del usuario...">
+                    <button type="button" id="btn-buscar-historial">Buscar Historial</button>
+                </div>
+                <div id="resultados-historial-compras">
+                    <p class="historial-vacio">Ingrese un correo electrónico válido para desplegar las órdenes de compra asociadas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer footer-simple">
+        <div class="footer-content">
+            <p>&copy; 2026 Online Doggie. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="admin-fab" class="admin-fab">
+        <span>🛠️</span>
+    </div>
+
+    <div id="admin-drawer" class="admin-drawer">
+        <div class="drawer-header">
+            <h3>Menú Admin</h3>
+            <button id="close-drawer" class="close-drawer">✕</button>
+        </div>
+        <ul class="drawer-menu">
+            <li class="menu-item" data-target="vista-metricas">📊 Métricas del Sistema</li>
+            <li class="menu-item" data-target="vista-categorias">🏷️ Gestión de Categorías</li>
+            <li class="menu-item" data-target="vista-productos">📦 Crear Productos</li>
+            <li class="menu-item" data-target="vista-editar-productos">📦 Editar Productos</li>
+            <li class="menu-item" data-target="vista-pedidos">🚚 Gestión de Pedidos</li>
+            <li class="menu-item" data-target="vista-usuarios">👥 Editar Usuarios</li>
+            <li class="menu-item" data-target="vista-historial-compras">📜 Historial de Compras</li>
+        </ul>
+    </div>
+    <div id="drawer-overlay" class="drawer-overlay"></div>
+
+    <div id="modal-editar-overlay" class="drawer-overlay"></div>
+    <div id="modal-editar" class="modal-editar">
+        <div class="modal-editar-content">
+            <div class="drawer-header">
+                <h3>Editar producto</h3>
+                <button id="cerrar-modal-editar" class="close-drawer">✕</button>
+            </div>
+            <form id="form-editar-producto">
+                <input type="text" id="edit-nombre" placeholder="Nombre del producto" required>
+                <input type="text" id="edit-descripcion" placeholder="Descripción" required>
+                <input type="number" id="edit-precio" placeholder="Precio" required>
+                <select id="edit-categoria" required>
+                    <option value="">Selecciona una categoría</option>
+                </select>
+                <input type="number" id="edit-stock" placeholder="Stock" required>
+                
+                <div class="upload-box" id="edit-upload-box">
+                    <input type="file" id="edit-imagen" accept="image/*" hidden>
+                    <div class="upload-content">
+                        <p>📷 Cambiar imagen del producto</p>
+                        <span>Haz clic o arrastra una nueva imagen aquí</span>
+                    </div>
+                    <img id="edit-preview" class="preview-img">
+                </div>
+                <button type="submit">Actualizar Producto</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./js/toast.js"></script>
+    <script src="./js/usuario-navbar.js"></script>
+    <script src="./js/admin.js"></script>
+
+</body>
+</html>

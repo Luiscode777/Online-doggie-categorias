@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONLINE DOGGIE</title>
+    
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="https://online-doggie-backend-production.up.railway.app/uploads/ONLINE-DOGGIE%20ICO.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <img src="https://online-doggie-backend-production.up.railway.app/uploads/ONLINE-DOGGIE%20ICO.ico" alt="Logo Online Doggie">
+            <h1>Online Doggie</h1>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html" class="active">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="login.html" class="btn-login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+
+        <section class="hero">
+            <div class="hero-img-container">
+                <img src="https://online-doggie-backend-production.up.railway.app/uploads/Inicio%20de%20la%20pagina.webp" alt="Perros felices" class="hero-img">
+            </div>
+            <div class="hero-text">
+                <h1>Bienvenido a Online Doggie</h1>
+                <p>Todo lo que tu mascota necesita, en un solo lugar</p>
+                <a href="productos.html" class="btn">🐶 Ver Productos</a>
+            </div>
+        </section>
+
+        <section class="banners-section">
+            <h2>Ofertas y Promociones</h2>
+            <div class="banners-container">
+                <div class="banner-item">
+                    <img src="https://online-doggie-backend-production.up.railway.app/uploads/banner2.jpg" alt="Promoción 1">
+                    <div class="banner-overlay">
+                        <p>🐶 20% en productos para perros</p>
+                    </div>
+                </div>
+                <div class="banner-item">
+                    <img src="https://online-doggie-backend-production.up.railway.app/uploads/banner1.jpg" alt="Promoción 2">
+                    <div class="banner-overlay">
+                        <p>🐱 Accesorios para gatos</p>
+                    </div>
+                </div>
+                <div class="banner-item">
+                    <img src="https://online-doggie-backend-production.up.railway.app/uploads/banner3.jpg" alt="Promoción 3">
+                    <div class="banner-overlay">
+                        <p>🦴 Snacks naturales en oferta</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="historial-navegacion" id="seccion-historial-nav" style="display: none;">
+            <h2>Vistos recientemente</h2>
+            <div id="historial-nav-lista" class="lista-productos"></div>
+        </section>
+
+        <section class="calificacion-section">
+            <h2>¿Cómo fue tu experiencia?</h2>
+            <p>Califícanos y ayúdanos a mejorar</p>
+            <div class="estrellas-servicio" id="estrellas-servicio">
+                <span class="estrella-servicio" data-valor="1" onclick="seleccionarCalificacion(1)">☆</span>
+                <span class="estrella-servicio" data-valor="2" onclick="seleccionarCalificacion(2)">☆</span>
+                <span class="estrella-servicio" data-valor="3" onclick="seleccionarCalificacion(3)">☆</span>
+                <span class="estrella-servicio" data-valor="4" onclick="seleccionarCalificacion(4)">☆</span>
+                <span class="estrella-servicio" data-valor="5" onclick="seleccionarCalificacion(5)">☆</span>
+            </div>
+            <button class="btn" onclick="enviarCalificacion()" style="margin-top: 10px;">
+                Enviar calificación
+            </button>
+            <p id="mensaje-calificacion"></p>
+        </section>
+
+        <div class="interaccion-container">
+            
+            <section class="contacto-section">
+                <h2>Contáctanos</h2>
+                <form id="form-contacto">
+                    <div class="form-group">
+                        <label for="contacto-nombre">Nombre</label>
+                        <input type="text" id="contacto-nombre" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contacto-email">Correo electrónico</label>
+                        <input type="email" id="contacto-email" placeholder="tucorreo@ejemplo.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contacto-mensaje">Mensaje</label>
+                        <textarea id="contacto-mensaje" placeholder="¿En qué podemos ayudarte?" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Enviar mensaje</button>
+                    <p id="mensaje-contacto"></p>
+                </form>
+            </section>
+
+            <section class="boletin-section">
+                <h2>📧 Suscríbete a nuestro boletín</h2>
+                <p>Recibe ofertas y novedades directamente en tu correo</p>
+                <form id="form-boletin">
+                    <div class="boletin-form">
+                        <input type="email" id="boletin-email" placeholder="tucorreo@ejemplo.com" required>
+                        <button type="submit" class="btn">Suscribirme</button>
+                    </div>
+                    <p id="mensaje-boletin"></p>
+                </form>
+            </section>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="footer-brand">
+                    <img src="https://online-doggie-backend-production.up.railway.app/uploads/ONLINE-DOGGIE%20ICO.ico" alt="Online Doggie">
+                    <h4>Online Doggie</h4>
+                </div>
+                <p>Todo lo que tu mascota necesita en un solo lugar.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="carrito.html">Carrito</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <p><i class="fa-solid fa-phone"></i> +57 300 123 4567</p>
+                <p><i class="fa-solid fa-envelope"></i> contacto@onlinedoggie.com</p>
+            </div>
+            <div class="footer-col">
+                <h4>Redes sociales</h4>
+                <ul>
+                    <li>
+                        <a href="https://instagram.com/onlinedoggie" target="_blank">
+                            <i class="fa-brands fa-instagram"></i> Instagram
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/onlinedoggie" target="_blank">
+                            <i class="fa-brands fa-facebook"></i> Facebook
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Online Doggie. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="./js/toast.js"></script>
+    <script src="./js/usuario-navbar.js"></script>
+    <script src="./js/carrito-funciones.js"></script>
+    <script src="./js/carrito.js"></script>
+    <script src="./js/app.js"></script>
+
+    <script>
+        let calificacionSeleccionada = 0;
+
+        function seleccionarCalificacion(valor) {
+            calificacionSeleccionada = valor;
+            document.querySelectorAll(".estrella-servicio").forEach((estrella, index) => {
+                estrella.textContent = index < valor ? "⭐" : "☆";
+            });
+        }
+
+        function enviarCalificacion() {
+            if (!calificacionSeleccionada) {
+                if (typeof mostrarToast === "function") {
+                    mostrarToast("Selecciona una calificación antes de enviar", "error");
+                } else {
+                    const mensaje = document.getElementById("mensaje-calificacion");
+                    mensaje.textContent = "Selecciona una calificación antes de enviar";
+                    mensaje.style.color = "red";
+                }
+                return;
+            }
+
+            if (typeof mostrarToast === "function") {
+                mostrarToast(`¡Gracias por calificar nuestra web con ${calificacionSeleccionada} estrellas! 🐾`, "success");
+                calificacionSeleccionada = 0;
+                document.querySelectorAll(".estrella-servicio").forEach(e => e.textContent = "☆");
+            } else {
+                const mensaje = document.getElementById("mensaje-calificacion");
+                mensaje.textContent = `✅ ¡Gracias por tu calificación de ${calificacionSeleccionada} estrellas!`;
+                mensaje.style.color = "green";
+                calificacionSeleccionada = 0;
+                document.querySelectorAll(".estrella-servicio").forEach(e => e.textContent = "☆");
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,2242 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+/* ========================================================================== */
+/* 1. VARIABLES GLOBALES                                                       */
+/* ========================================================================== */
+
+:root {
+    --azul-primario: #1E3CFF;
+    --azul-secundario: #00B4E6;
+    --azul-hover: #162FCC;
+    --azul-fondo: #F4FAFF;
+    --gris-texto: #1F1F1F;
+    --gris-borde: #E5E7EB;
+    --blanco: #FFFFFF;
+}
+
+/* ========================================================================== */
+/* 2. RESET Y GENERALES                                                        */
+/* ========================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Oswald', sans-serif;
+}
+
+body {
+    background-color: var(--azul-fondo);
+    color: var(--gris-texto);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+}
+
+/* ========================================================================== */
+/* 3. HEADER Y NAVBAR                                                          */
+/* ========================================================================== */
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--blanco);
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--gris-borde);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header img {
+    height: 100px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo h1 {
+    font-size: 22px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    position: relative;
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--gris-texto);
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--azul-primario);
+    background: rgba(30, 60, 255, 0.08);
+}
+
+nav ul li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--blanco);
+    padding: 10px 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    min-width: 160px;
+    border-radius: 8px;
+}
+
+nav ul li:hover ul {
+    display: block;
+}
+
+nav ul li ul li {
+    padding: 8px 20px;
+    margin-left: 0;
+}
+
+nav ul li ul li a:hover {
+    background: var(--azul-fondo);
+}
+
+/* ========================================================================== */
+/* 4. HERO SECTION                                                             */
+/* ========================================================================== */
+
+.hero {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 50px auto;
+    gap: 40px;
+    padding: 0 20px;
+}
+
+.hero-img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.hero-text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+/* ========================================================================== */
+/* 5. BANNERS                                                                  */
+/* ========================================================================== */
+
+.banners-section {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.banners-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.banner-item {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    height: 200px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.banner-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.banner-item:hover img {
+    transform: scale(1.1);
+}
+
+.banner-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    color: white;
+    text-align: left;
+}
+
+/* ========================================================================== */
+/* 6. BUSCADOR Y FILTROS                                                      */
+/* ========================================================================== */
+
+.productos-header {
+    background: transparent;
+    padding: 20px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.productos-header h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.productos-header p {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.filtros-contenedor {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.buscador,
+.select-filtro {
+    width: 240px;
+    padding: 8px 15px;
+    border: 2px solid var(--azul-primario);
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    background: var(--blanco);
+    transition: all 0.3s ease;
+}
+
+.select-filtro {
+    cursor: pointer;
+}
+
+.buscador:focus,
+.select-filtro:focus {
+    border-color: var(--azul-secundario);
+    box-shadow: 0 0 6px rgba(0, 180, 230, 0.3);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 650px) {
+    .buscador, .select-filtro {
+        width: 90%;
+    }
+}
+
+/* ========================================================================== */
+/* 7. PRODUCTOS                                                                */
+/* ========================================================================== */
+
+.lista-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+    padding: 30px;
+}
+
+.producto {
+    background: var(--blanco);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.producto:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.producto img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.producto h3 {
+    margin-top: 12px;
+    font-size: 18px;
+}
+
+.producto .descripcion {
+    font-size: 14px;
+    color: #666;
+    margin-top: 6px;
+    min-height: 40px;
+}
+
+.producto .stock {
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.producto .stock::before {
+    content: "📦 ";
+}
+
+.precio {
+    margin: 10px 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--azul-primario);
+}
+
+.rating {
+    color: #FFD700;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+/* ========================================================================== */
+/* 8. CALIFICACIÓN SERVICIO                                                    */
+/* ========================================================================== */
+
+.calificacion-section {
+    background: white;
+    padding: 40px 20px;
+    text-align: center;
+    margin: 40px 0;
+    border-top: 1px solid var(--gris-borde);
+}
+
+.estrellas-servicio {
+    font-size: 35px;
+    color: #FFD700;
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+.estrella-servicio:hover {
+    transform: scale(1.2);
+    display: inline-block;
+}
+
+/* ========================================================================== */
+/* 9. FORMULARIOS (Contacto y Boletín)                                        */
+/* ========================================================================== */
+
+.interaccion-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 20px;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.contacto-section,
+.boletin-section {
+    flex: 1;
+    margin: 0;
+    padding: 35px 30px !important;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.contacto-section h3,
+.boletin-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    color: var(--azul-primario);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contacto-section input,
+.contacto-section textarea,
+.boletin-section input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--gris-borde);
+    border-radius: 8px;
+    font-size: 15px;
+    background: var(--blanco);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.contacto-section textarea {
+    resize: none;
+    min-height: 110px;
+}
+
+.contacto-section input:focus,
+.contacto-section textarea:focus,
+.boletin-section input:focus {
+    border-color: var(--azul-primario);
+    box-shadow: 0 0 8px rgba(30, 60, 255, 0.15);
+}
+
+.contacto-section .form-group,
+.boletin-section p {
+    margin-bottom: 12px;
+}
+
+.boletin-section p {
+    font-size: 1.15rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.boletin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contacto-section button,
+.boletin-section button {
+    border-radius: 8px !important;
+    margin-top: 15px;
+    padding: 14px !important;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ========================================================================== */
+/* 10. BOTONES UNIFICADOS                                                      */
+/* ========================================================================== */
+
+.btn, .btn-agregar, .btn-ver-carrito, .registro button, .admin-form button,
+button[type="submit"], .btn-submit, .perfil-seccion button:not(#logout-btn) {
+    display: inline-block;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, var(--azul-primario), var(--azul-secundario));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+    width: 100%;
+}
+
+.btn:hover, .btn-agregar:hover, .registro button:hover, button:hover,
+.btn-submit:hover, .perfil-seccion button:not(#logout-btn):hover {
+    background: var(--azul-hover);
+    transform: translateY(-2px);
+}
+
+/* ========================================================================== */
+/* 11. CARRITO Y CARRITO LATERAL                                              */
+/* ========================================================================== */
+
+/* --- Mini Carrito Lateral --- */
+#overlay-mini {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0; visibility: hidden;
+    transition: all 0.3s ease; z-index: 998;
+}
+#overlay-mini.activo { opacity: 1; visibility: visible; }
+
+.mini-carrito {
+    position: fixed; top: 0; right: -400px;
+    width: 380px; height: 100%;
+    background: var(--blanco);
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    display: flex; flex-direction: column;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+}
+.mini-carrito.activo { right: 0; }
+
+.mini-header {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--gris-borde); padding-bottom: 15px;
+    margin-bottom: 10px;
+}
+
+#mini-carrito-body { flex: 1; overflow-y: auto; margin-right: -10px; padding-right: 10px; }
+
+.mini-item {
+    display: flex; align-items: center; gap: 12px;
+    background: #f8fbff; padding: 10px; border-radius: 10px;
+    margin-bottom: 12px;
+}
+.mini-img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
+.mini-info { flex: 1; }
+.mini-info h4 { font-size: 14px; margin: 0 0 4px 0; line-height: 1.2; }
+.mini-precio { font-weight: 700; color: var(--azul-primario); font-size: 0.95rem; }
+.mini-eliminar { background: none; border: none; cursor: pointer; color: #ff6b6b; padding: 5px; }
+
+.mini-footer { border-top: 1px solid var(--gris-borde); padding-top: 20px; }
+
+/* --- Botón Flotante --- */
+.carrito-flotante {
+    position: fixed; bottom: 30px; right: 30px;
+    width: 65px; height: 65px;
+    background: linear-gradient(135deg, var(--azul-primario), var(--azul-secundario));
+    color: white; font-size: 24px; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    cursor: pointer; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000; transition: transform 0.3s ease;
+}
+.carrito-flotante:hover { transform: scale(1.1); }
+
+#contador-carrito {
+    position: absolute; top: -5px; right: -5px;
+    background: #000; color: #fff; font-size: 11px; font-weight: bold;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+}
+
+/* --- Página de Carrito (carrito.html) unificada --- */
+.main-carrito { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+
+.contenedor-cajita {
+    background: var(--blanco);
+    padding: 35px 30px;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(30, 60, 255, 0.06), 0 5px 15px rgba(0, 0, 0, 0.03);
+    margin: 40px auto 50px auto;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(30, 60, 255, 0.1);
+}
+
+/* La rayita estilo "Crear Producto" */
+.contenedor-cajita::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--azul-primario), #00d2ff, var(--azul-secundario));
+}
+
+.contenedor-cajita h1 { font-size: 24px; color: #333; margin-bottom: 25px; }
+
+.tabla-carrito { width: 100%; border-collapse: collapse; }
+.tabla-carrito th { 
+    background: #fcfcfc; color: #666; padding: 15px; 
+    text-transform: uppercase; font-size: 12px; letter-spacing: 1px;
+}
+.tabla-carrito td { padding: 20px 15px; border-bottom: 1px solid #eee; text-align: center; }
+
+/* Resumen y Botones */
+.resumen-carrito { 
+    margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0;
+    display: flex; flex-direction: column; align-items: flex-end;
+}
+
+.carrito-acciones { display: flex; gap: 15px; width: 100%; justify-content: flex-end; margin-bottom: 20px; }
+
+#total { font-size: 28px; color: var(--azul-primario); margin-bottom: 15px; }
+
+.cupon-box { text-align: right; margin-bottom: 20px; }
+.cupon-form { display: flex; gap: 10px; }
+.cupon-form input { 
+    border: 2px solid #eee; padding: 10px 15px; border-radius: 10px; 
+    outline: none; transition: border 0.3s; width: 180px;
+}
+.cupon-form input:focus { border-color: var(--azul-primario); }
+
+/* Ajuste del botón vaciar (más pequeño) */
+.btn-carrito { 
+    padding: 10px 20px; border-radius: 10px; font-weight: 600; 
+    cursor: pointer; border: none; transition: transform 0.2s, opacity 0.2s;
+}
+.btn-vaciar { background: #fff0f0; color: #ff4d4d; font-size: 0.9rem; }
+.btn-pagar { background: linear-gradient(135deg, var(--azul-primario), var(--azul-secundario)); color: white; padding: 12px 30px; }
+.btn-carrito:hover { transform: translateY(-2px); opacity: 0.9; }
+
+/* ========================================================================== */
+/* 12. LOGIN / REGISTRO                                                        */
+/* ========================================================================== */
+
+.registro-section {
+    max-width: 500px;
+    width: 90%;
+    margin: 60px auto;
+    text-align: center;
+}
+
+.registro {
+    background-color: var(--blanco);
+    padding: 35px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border-top: 6px solid var(--azul-primario);
+}
+
+.registro .logo {
+    display: block;
+    margin: 0 auto 20px auto;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.registro input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--gris-borde);
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.registro input:focus {
+    border-color: var(--azul-primario);
+    box-shadow: 0 0 6px rgba(30, 60, 255, 0.25);
+    outline: none;
+}
+
+.login-link {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: var(--azul-primario);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ========================================================================== */
+/* 13. PERFIL DE USUARIO                                                       */
+/* ========================================================================== */
+
+.perfil-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    gap: 30px;
+    text-align: left;
+}
+
+.perfil-col-izquierda {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.perfil-col-derecha {
+    flex: 1.3;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.perfil-seccion {
+    background: var(--blanco);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--gris-borde);
+}
+
+.perfil-seccion h3 {
+    font-size: 1.4rem;
+    color: var(--gris-texto);
+    margin-bottom: 18px;
+    border-bottom: 3px solid var(--azul-primario);
+    padding-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.perfil-card {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+}
+
+.perfil-card p {
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed var(--gris-borde);
+    padding-bottom: 6px;
+}
+
+.perfil-card strong {
+    color: var(--azul-primario);
+}
+
+.perfil-seccion input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--gris-borde);
+    border-radius: 8px;
+    font-size: 15px;
+    background: var(--blanco);
+    transition: border-color 0.3s;
+}
+
+.perfil-seccion input:focus {
+    border-color: var(--azul-primario);
+    box-shadow: 0 0 6px rgba(30, 60, 255, 0.2);
+    outline: none;
+}
+
+#logout-btn {
+    background: #EF4444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    transition: background 0.3s, transform 0.2s;
+    text-align: center;
+}
+
+#logout-btn:hover {
+    background: #DC2626;
+    transform: translateY(-2px);
+}
+
+.badge-estado {
+    background-color: #FEF3C7;
+    color: #D97706;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: inline-block;
+}
+
+#historial-compras p {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+#historial-compras ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+#historial-compras li {
+    margin-bottom: 5px;
+    color: var(--gris-texto);
+}
+
+/* Estructura de Vistas */
+.vista-seccion-perfil {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.vista-seccion-perfil.activa {
+    display: block;
+}
+
+/* Drawer (Menú Lateral) */
+.admin-drawer {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 320px;
+    height: 100vh;
+    background: var(--blanco);
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 2000;
+    transition: right 0.3s ease;
+    padding: 20px;
+    border-left: 1px solid var(--gris-borde);
+}
+
+.admin-drawer.abierto {
+    right: 0;
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--azul-primario);
+}
+
+.drawer-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+    border-left: 4px solid transparent;
+}
+
+.menu-item:hover {
+    background: #edf2f7;
+}
+
+.menu-item.activa {
+    background: #ebf8ff;
+    border-left-color: var(--azul-primario);
+    color: var(--azul-primario);
+}
+
+/* Tabla Estilizada */
+.tabla-perfil-container {
+    overflow-x: auto;
+    margin-top: 15px;
+    border: 1px solid var(--gris-borde);
+    border-radius: 12px;
+}
+
+.tabla-perfil-diseno {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-perfil-diseno th {
+    background: var(--azul-primario);
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.tabla-perfil-diseno td {
+    padding: 12px;
+    border-bottom: 1px solid var(--gris-borde);
+}
+
+/* ========================================================================== */
+/* 14. FOOTER                                       */
+/* ========================================================================== */
+
+.footer {
+    background: var(--azul-primario);
+    color: white;
+    padding: 50px 5% 20px 5%;
+    margin-top: auto;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    clear: both;
+}
+
+.footer-content {
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 220px; 
+}
+
+.footer-col:first-child {
+    flex: 1.5;
+    min-width: 260px;
+}
+
+.footer-simple .footer-content {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Línea decorativa solo para títulos de columnas comunes */
+.footer-col h4 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    border-bottom: 2px solid var(--azul-secundario);
+    display: inline-block;
+    font-size: 1.1rem;
+    padding-bottom: 4px;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+/* FIX DE ESPECIFICIDAD: Apuntamos con precisión para eliminar la línea del logo */
+.footer-col .footer-brand h4 {
+    margin-bottom: 0;
+    border-bottom: none; 
+    padding-bottom: 0;
+}
+
+.footer-brand img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    padding: 4px;
+    object-fit: contain;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 12px;
+}
+
+.footer-col a {
+    color: white;
+    text-decoration: none;
+    opacity: 0.85;
+    display: inline-flex; 
+    align-items: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.footer-col a:hover {
+    opacity: 1;
+    transform: translateX(6px);
+}
+
+.footer i {
+    margin-right: 8px;
+    font-size: 1rem;
+    width: 16px;
+    text-align: center;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.carrito-flotante, 
+.fab-container {
+    position: fixed !important;
+    bottom: 25px !important;
+    right: 25px !important;
+    z-index: 9999 !important;
+    margin: 0 !important; 
+}
+
+/* ========================================================================== */
+/* 15. RESPONSIVE                                                              */
+/* ========================================================================== */
+
+@media (max-width: 850px) {
+    .interaccion-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero { flex-direction: column; text-align: center; }
+    nav ul { flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .lista-productos { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+    .boletin-form { flex-direction: column; }
+    .perfil-container { flex-direction: column; }
+}
+
+/* ========================================================================== */
+/* 16. PANEL ADMIN - ESTRUCTURA BASE                                           */
+/* ========================================================================== */
+
+.admin-panel {
+    width: 100% !important;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.admin-panel h2 {
+    font-size: 1.5rem;
+    color: var(--gris-texto);
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-bottom: 3px solid var(--azul-primario);
+    padding-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.admin-form {
+    background: var(--blanco);
+    padding: 35px 30px;
+    border-radius: 16px;
+    
+    box-shadow: 0 15px 35px rgba(30, 60, 255, 0.06), 
+                0 5px 15px rgba(0, 0, 0, 0.03);
+    
+    margin: 40px auto 50px auto;
+    max-width: 550px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(30, 60, 255, 0.1); 
+    box-sizing: border-box;
+}
+
+.admin-form::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--azul-primario), #00d2ff, var(--azul-secundario));
+}
+
+
+.admin-form h2 {
+    font-size: 1.6rem;
+    color: var(--gris-texto);
+    margin-bottom: 25px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+
+.admin-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px; 
+}
+
+
+.admin-form form input[type="text"],
+.admin-form form input[type="number"],
+.admin-form form select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 14.5px;
+    color: var(--gris-texto);
+    background-color: #f8fafc;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 48px;
+}
+
+
+.admin-form form input:focus,
+.admin-form form select:focus {
+    background-color: #ffffff;
+    border-color: var(--azul-primario);
+    /* Halo de luz azul neón suave alrededor del input */
+    box-shadow: 0 0 0 4px rgba(30, 60, 255, 0.12), 
+                0 4px 10px rgba(30, 60, 255, 0.05);
+}
+
+.upload-box {
+    border: 2px dashed rgba(30, 60, 255, 0.3);
+    background: linear-gradient(135deg, rgba(30, 60, 255, 0.01), rgba(0, 210, 255, 0.01));
+    border-radius: 12px;
+    padding: 10px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 125px;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+
+.upload-box:hover {
+    border-color: var(--azul-primario);
+    background: linear-gradient(135deg, rgba(30, 60, 255, 0.04), rgba(0, 210, 255, 0.04));
+    box-shadow: inset 0 0 12px rgba(30, 60, 255, 0.05);
+}
+
+.upload-content p {
+    font-weight: bold;
+    color: var(--azul-primario);
+    margin: 0 0 2px 0;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+}
+
+.upload-content span {
+    font-size: 12.5px;
+    color: #64748b;
+}
+
+.preview-img {
+    max-height: 75px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-top: 6px;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra para la foto cargada */
+}
+
+/* ========================================================================== */
+/* MEJORA DE LUZ PARA EL BOTÓN DE ENVÍO                                       */
+/* ========================================================================== */
+.admin-form button[type="submit"] {
+    margin-top: 10px;
+    height: 50px;
+    font-size: 15.5px;
+    letter-spacing: 0.5px;
+    border-radius: 10px;
+    /* Tu gradiente original */
+    background: linear-gradient(135deg, var(--azul-primario), var(--azul-secundario));
+    box-shadow: 0 4px 12px rgba(30, 60, 255, 0.15);
+    transition: all 0.3s ease;
+}
+
+/* El botón se enciende e ilumina el formulario al poner el cursor */
+.admin-form button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(30, 60, 255, 0.35); /* Brillo neón intenso inferior */
+    filter: brightness(1.05); /* Incrementa levemente la luz del gradiente */
+}
+
+.admin-form button[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(30, 60, 255, 0.2);
+}
+
+.upload-box {
+    border: 2px dashed var(--azul-primario);
+    border-radius: 12px;
+    padding: 10px 15px;
+    text-align: center;
+    cursor: pointer;
+    background: var(--azul-fondo);
+}
+
+.upload-box:hover {
+    background: rgba(30, 60, 255, 0.05);
+}
+
+.upload-content p {
+    margin: 0 0 2px 0;
+    font-size: 13px;
+}
+
+.upload-content span {
+    font-size: 11px;
+}
+
+.preview-img {
+    max-height: 70px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 6px;
+    margin-top: px;
+}
+
+.admin-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--gris-borde);
+    background: var(--azul-fondo);
+}
+
+.admin-item h4 {
+    font-size: 1.15rem;
+}
+
+.admin-precio {
+    font-weight: bold;
+    color: var(--azul-primario);
+}
+
+.admin-actions button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: white;
+}
+
+.admin-actions button:first-child { background: #10B981; }
+.admin-actions button:last-child { background: #EF4444; }
+
+/* Selectores y campos de gestión de pedidos */
+.admin-panel select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 2px solid var(--azul-primario);
+    background: white;
+    font-weight: bold;
+}
+
+.admin-panel input[value="Actualizar"] {
+    background: var(--azul-primario);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 25px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    transition: background 0.2s;
+}
+
+.admin-panel input[value="Actualizar"]:hover {
+    background: var(--azul-hover);
+}
+
+.admin-panel input:has(+ input[value="Actualizar"]) {
+    width: 65px;
+    padding: 5px;
+    border: 1px solid var(--gris-borde);
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+    margin-left: 6px;
+}
+
+.admin-panel input[type="button"][value*="estado"] {
+    background: linear-gradient(135deg, var(--azul-primario), var(--azul-secundario));
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+/* Formulario de nuevo administrador */
+.admin-panel form:has(input[placeholder*="correo"]) {
+    background: var(--blanco);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    max-width: 480px;
+    margin-top: 15px;
+    border-left: 5px solid var(--azul-secundario);
+}
+
+.admin-panel form:has(input[placeholder*="correo"]) input[type="email"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--gris-borde);
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    outline: none;
+}
+
+.admin-panel form:has(input[placeholder*="correo"]) input[type="email"]:focus {
+    border-color: var(--azul-primario);
+}
+
+/* ========================================================================== */
+/* 17. PANEL ADMIN - VISTAS                                                    */
+/* ========================================================================== */
+
+.vista-seccion {
+    display: none;
+    width: 100%;
+}
+
+.vista-seccion.activa {
+    display: block;
+    width: 100%;
+}
+
+/* ========================================================================== */
+/* 18. PANEL ADMIN - TABLAS DE PRODUCTOS                                       */
+/* ========================================================================== */
+
+.admin-productos {
+    width: 100%;
+    max-height: 480px;
+    overflow-y: auto;
+    padding: 15px;
+    background: var(--blanco);
+    border-radius: 12px;
+    border: 1px solid var(--gris-borde);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.admin-productos-tabla-wrapper {
+    width: 100% !important;
+    box-sizing: border-box;
+    margin-top: 20px;
+    background: var(--blanco);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    overflow-x: auto;
+    position: relative; /* ⚡ Necesario para fijar la línea de luz */
+}
+
+/* ✨ ÚNICO CAMBIO: Añadimos solo la línea de luz superior respetando tus bordes redondos */
+.admin-productos-tabla-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #00d2ff, var(--azul-primario), var(--azul-secundario));
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.tabla-admin {
+    width: 100% !important;
+    border-collapse: collapse;
+    background: var(--blanco);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+}
+
+.tabla-admin th {
+    background-color: var(--azul-primario);
+    color: var(--blanco);
+    padding: 14px 16px;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tabla-admin td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--gris-borde);
+    vertical-align: middle;
+}
+
+.tabla-admin tbody tr:hover {
+    background-color: var(--azul-fondo);
+}
+
+/* Columnas específicas */
+.td-id { font-weight: bold; color: #777; width: 60px; }
+.td-img { width: 80px; }
+.td-img img { width: 48px; height: 48px; object-fit: cover; border-radius: 6px; border: 1px solid var(--gris-borde); }
+.td-nombre { font-weight: bold; color: var(--gris-texto); font-size: 16px; }
+.td-desc { color: #666; max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.td-precio { font-weight: bold; color: var(--azul-primario); font-size: 16px; }
+.td-acciones { width: 160px; }
+
+/* Indicadores de stock */
+.stock-bajo { background-color: #FEE2E2; color: #EF4444; padding: 5px 10px; border-radius: 4px; font-weight: bold; display: inline-block; }
+.stock-ok { background-color: #D1FAE5; color: #065F46; padding: 5px 10px; border-radius: 4px; font-weight: bold; display: inline-block; }
+
+/* Botones dentro de las tablas */
+.tabla-botones-container { display: flex; gap: 8px; }
+
+.btn-tabla-editar {
+    padding: 6px 14px;
+    background-color: transparent;
+    border: 1.5px solid var(--azul-primario);
+    color: var(--azul-primario);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.btn-tabla-editar:hover {
+    background-color: var(--azul-primario);
+    color: var(--blanco);
+}
+
+.btn-tabla-eliminar {
+    padding: 6px 14px;
+    background-color: #EF4444;
+    border: none;
+    color: var(--blanco);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-tabla-eliminar:hover {
+    background-color: #DC2626;
+}
+/* ========================================================================== */
+/* 19. PANEL ADMIN - BOTONES DE ACCIÓN (Editar, Eliminar, Cambiar Estado)     */
+/* ========================================================================== */
+
+.panel-administracion button:not([type="submit"]):not(#logout-btn):not(#cerrar-mini),
+.panel-administracion input[type="button"],
+button[id^="btn-actualizar"],
+button[onclick*="actualizarStock"],
+button[onclick*="cambiarEstado"],
+.panel-administracion form table button,
+.panel-administracion p button {
+    display: inline-block;
+    width: auto;
+    padding: 6px 15px;
+    background: linear-gradient(135deg, var(--azul-primario), var(--azul-secundario));
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(30, 60, 255, 0.15);
+    margin-left: 5px;
+}
+
+.panel-administracion button:not([type="submit"]):not(#logout-btn):not(#cerrar-mini):hover,
+.panel-administracion input[type="button"]:hover,
+button[id^="btn-actualizar"]:hover,
+button[onclick*="actualizarStock"]:hover,
+button[onclick*="cambiarEstado"]:hover {
+    background: var(--azul-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(22, 47, 204, 0.3);
+}
+
+button[onclick*="editarProducto"],
+button[onclick*="cambiarEstado"] {
+    background-color: transparent;
+    color: var(--azul-primario);
+    border: 1.5px solid var(--azul-primario);
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+button[onclick*="editarProducto"]:hover,
+button[onclick*="cambiarEstado"]:hover {
+    background-color: var(--azul-primario);
+    color: var(--blanco);
+    box-shadow: 0 4px 8px rgba(30, 60, 255, 0.2);
+}
+
+button[onclick*="eliminarProducto"] {
+    background-color: transparent;
+    color: #E11D48;
+    border: 1.5px solid #E11D48;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+button[onclick*="eliminarProducto"]:hover {
+    background-color: #E11D48;
+    color: var(--blanco);
+    box-shadow: 0 4px 8px rgba(225, 29, 72, 0.2);
+}
+
+.panel-administracion .producto-registrado-item,
+.panel-administracion div[style*="display: flex"] {
+    gap: 8px;
+}
+
+/* ========================================================================== */
+/* 20. PANEL ADMIN - FAB + DRAWER LATERAL                                      */
+/* ========================================================================== */
+
+.admin-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(135deg, var(--azul-primario), var(--azul-secundario));
+    color: var(--blanco);
+    font-size: 28px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(30, 60, 255, 0.3);
+    z-index: 1001;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+}
+
+.admin-fab:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 12px 28px rgba(30, 60, 255, 0.45);
+}
+
+.admin-drawer {
+    position: fixed;
+    top: 0;
+    right: -340px;
+    width: 320px;
+    height: 100%;
+    background: var(--blanco);
+    box-shadow: -10px 0 35px rgba(0, 0, 0, 0.15);
+    padding: 30px 25px;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 1003;
+}
+
+.admin-drawer.abierto {
+    right: 0;
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--azul-primario);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.drawer-header h3 {
+    font-size: 1.4rem;
+    color: var(--gris-texto);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.close-drawer {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.close-drawer:hover {
+    color: #EF4444;
+    transform: scale(1.1);
+}
+
+.drawer-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menu-item {
+    padding: 14px 18px;
+    background: var(--azul-fondo);
+    color: var(--gris-texto);
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border-left: 4px solid transparent;
+}
+
+.menu-item:hover {
+    background: rgba(30, 60, 255, 0.08);
+    color: var(--azul-primario);
+    border-left-color: var(--azul-primario);
+    transform: translateX(5px);
+}
+
+.drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s;
+    z-index: 1002;
+}
+
+.drawer-overlay.activo {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ========================================================================== */
+/* 21. PANEL ADMIN - FAB FLOTANTE CON MENÚ DESPLEGABLE                        */
+/* ========================================================================== */
+
+.fab-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.floating-btn {
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(135deg, var(--azul-primario), var(--azul-secundario));
+    color: var(--blanco);
+    border: none;
+    border-radius: 50%;
+    font-size: 26px;
+    cursor: pointer;
+    box-shadow: 0px 8px 20px rgba(30, 60, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 12px 24px rgba(30, 60, 255, 0.35);
+}
+
+.fab-menu {
+    background-color: var(--blanco);
+    border-radius: 12px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--gris-borde);
+    padding: 8px;
+    min-width: 220px;
+    display: none;
+    animation: fadeUpIn 0.25s ease forwards;
+}
+
+.fab-menu.open {
+    display: block;
+}
+
+.fab-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 14px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    color: var(--gris-texto);
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s;
+}
+
+.fab-menu-item:hover {
+    background-color: var(--azul-fondo);
+    color: var(--azul-primario);
+}
+
+@keyframes fadeUpIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================================================================== */
+/* 22. PANEL ADMIN - MODAL EDITAR PRODUCTO */
+/* ========================================================================== */
+
+.modal-editar {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 90%; 
+    max-width: 480px; /* Un poco más espacioso para que respire el diseño */
+    background: var(--blanco);
+    border-radius: 12px; /* Esquinas suavizadas idénticas a tu formulario anterior */
+    padding: 30px;
+    z-index: 1003;
+    opacity: 0; 
+    visibility: hidden;
+    
+    /* Animación suave estilo "Pop-up" al abrirse */
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s, visibility 0.3s;
+    
+    /* Sombra profunda que hace flotar la tarjeta sobre el fondo oscuro */
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(30, 60, 255, 0.05);
+    overflow: hidden; /* Corta la barra de luz neón para que encaje perfecta */
+    box-sizing: border-box;
+}
+
+/* 🌟 Línea de luz neón superior idéntica a tus otras secciones favoritas */
+.modal-editar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #00d2ff, var(--azul-primario), var(--azul-secundario));
+}
+
+.modal-editar.activo {
+    opacity: 1; 
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1); /* Crece suavemente al activarse */
+}
+
+/* Mantenemos tu flujo vertical original pero ordenado con separación exacta */
+.modal-editar-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Espaciado impecable entre inputs */
+}
+
+/* 🎨 UNIFICACIÓN: Mismos bordes, tamaños y alturas para que todo combine */
+.modal-editar-content form input,
+.modal-editar-content form select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--gris-borde, #cbd5e1);
+    border-radius: 8px;
+    font-size: 14.5px;
+    color: var(--gris-texto);
+    background-color: #ffffff;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    height: 46px; /* Altura perfecta e idéntica para cada casilla */
+    margin-bottom: 0 !important; /* Eliminamos el viejo margen que los desalineaba */
+}
+
+/* ✨ EFECTO LUZ: El halo neón azul que se enciende al hacer clic en un campo */
+.modal-editar-content form input:focus,
+.modal-editar-content form select:focus {
+    border-color: var(--azul-primario);
+    box-shadow: 0 0 0 4px rgba(30, 60, 255, 0.08); /* Destello azul sutil */
+}
+
+/* Botón principal de actualizar dentro del modal */
+.modal-editar-content form button[type="submit"] {
+    width: 100%;
+    height: 48px;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--azul-primario), var(--azul-secundario));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 8px;
+}
+
+/* Efecto hover interactivo para el botón */
+.modal-editar-content form button[type="submit"]:hover {
+    background: var(--azul-hover);
+    transform: translateY(-1px); /* Se eleva un milímetro */
+    box-shadow: 0 6px 15px rgba(30, 60, 255, 0.25); /* Proyecta más luz abajo */
+}
+
+/* ========================================================================== */
+/* 23. PANEL ADMIN - MODAL A PANTALLA COMPLETA                                */
+/* ========================================================================== */
+
+.modal-full-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--blanco);
+    z-index: 2000;
+    display: none;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.modal-full-screen.open {
+    display: flex;
+}
+
+.modal-full-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 40px auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.modal-full-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--gris-borde);
+    padding-bottom: 15px;
+}
+
+.modal-full-header h2 {
+    font-size: 2rem;
+    color: var(--gris-texto);
+    text-transform: uppercase;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.btn-cerrar-modal {
+    background-color: #EF4444;
+    color: var(--blanco);
+    border: none;
+    padding: 10px 20px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-cerrar-modal:hover {
+    background-color: #DC2626;
+}
+
+.tabla-gigante-container {
+    width: 100%;
+    overflow-x: auto;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+.tabla-gigante {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    background-color: var(--blanco);
+    font-family: Arial, sans-serif;
+}
+
+.tabla-gigante th {
+    background-color: #0046D5;
+    color: var(--blanco);
+    padding: 18px 20px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tabla-gigante td {
+    padding: 18px 20px;
+    border-bottom: 1px solid #E5E7EB;
+    color: #333;
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+.tabla-gigante tbody tr:hover {
+    background-color: #F8FAFC;
+}
+
+.badge-estado-tabla {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.badge-pendiente { background-color: #FEF3C7; color: #D97706; }
+.badge-enviado { background-color: #DBEAFE; color: #1E40AF; }
+.badge-entregado { background-color: #D1FAE5; color: #065F46; }
+
+/* ========================================================================== */
+/* 24. PANEL ADMIN - MÉTRICAS Y GRÁFICAS                                      */
+/* ========================================================================== */
+
+.grafica-container {
+    background: var(--blanco);
+    padding: 25px;
+    border-radius: 8px;
+    margin-top: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    max-height: 340px;
+    position: relative;
+}
+
+/* ========================================================================== */
+/* 25. PANEL ADMIN - GESTIÓN DE USUARIOS E HISTORIAL                          */
+/* ========================================================================== */
+
+.botones-usuarios-grid {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-usuario-accion {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--blanco);
+    font-family: inherit;
+    text-transform: uppercase;
+    transition: opacity 0.2s ease;
+}
+
+.btn-usuario-accion:hover {
+    opacity: 0.9;
+}
+
+#btn-promover { background-color: var(--azul-primario); }
+#btn-degradar { background-color: var(--azul-secundario); }
+#btn-eliminar { background-color: #EF4444; }
+
+.admin-historial-box {
+    margin-top: 30px;
+    background: var(--blanco);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.buscar-historial-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.buscar-historial-form input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid var(--gris-borde);
+    border-radius: 6px;
+    font-family: inherit;
+}
+
+.buscar-historial-form button {
+    padding: 12px 24px;
+    background-color: var(--azul-primario);
+    color: var(--blanco);
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.historial-item-card {
+    padding: 14px;
+    background: var(--azul-fondo);
+    border: 1px solid var(--gris-borde);
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.historial-item-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.historial-monto { color: var(--azul-primario); }
+.historial-id { color: var(--gris-texto); }
+
+.historial-item-detalles {
+    display: flex;
+    gap: 15px;
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 6px;
+}
+
+.historial-vacio { color: #666; font-style: italic; text-align: center; padding: 15px 0; }
+.historial-error { color: #EF4444; font-weight: bold; text-align: center; padding: 15px 0; }
+
+/* ========================================================================== */
+/* 26. PANEL ADMIN - TOASTS / NOTIFICACIONES                                  */
+/* ========================================================================== */
+
+.toast-success {
+    background: linear-gradient(135deg, #10B981, #059669) !important;
+    font-family: 'Oswald', sans-serif !important;
+    font-weight: bold;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+}
+
+.toast-error {
+    background: linear-gradient(135deg, #EF4444, #DC2626) !important;
+    font-family: 'Oswald', sans-serif !important;
+    font-weight: bold;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+}
+
+.toast-online-doggie {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    min-width: 320px;
+    padding: 18px 24px;
+    border-radius: 12px;
+    color: white;
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: slideIn 0.4s ease;
+}
+
+.toast-online-doggie.success {
+    background: linear-gradient(135deg, var(--azul-primario), var(--azul-secundario));
+    box-shadow: 0 8px 24px rgba(30, 60, 255, 0.30);
+}
+
+.toast-online-doggie.error {
+    background: linear-gradient(135deg, #EF4444, #DC2626);
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.30);
+}
+
+.toast-online-doggie .icono {
+    font-size: 26px;
+}
+
+.toast-online-doggie .subtexto {
+    font-size: 13px;
+    opacity: 0.85;
+    margin-top: 4px;
+    font-weight: normal;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* ==========================================
+   🚚 TABLA MODERNA DE GESTIÓN DE PEDIDOS 
+   ========================================== */
+.tabla-pedidos-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.tabla-pedidos {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    background: #ffffff;
+    font-size: 14px;
+}
+
+.tabla-pedidos th {
+    background-color: #1e3cff;
+    color: #ffffff;
+    padding: 14px 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.tabla-pedidos td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #edf2f7;
+    vertical-align: middle;
+}
+
+.tabla-pedidos tr:hover {
+    background-color: rgba(30, 60, 255, 0.01);
+}
+
+.cliente-info {
+    display: block;
+}
+
+.cliente-info .nombre {
+    display: block;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.cliente-info .correo {
+    display: block;
+    font-size: 11px;
+    color: #a0aec0;
+    margin-top: 1px;
+}
+
+.lista-productos-tabla {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 13px;
+    color: #4a5568;
+}
+
+.lista-productos-tabla li {
+    margin-bottom: 2px;
+}
+
+.tabla-pedidos .precio {
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.acciones-celda {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.select-tabla {
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid #cbd5e0;
+    outline: none;
+    cursor: pointer;
+    background-color: #fff;
+    transition: all 0.2s ease;
+}
+
+.btn-actualizar-tabla {
+    background-color: #00a3ff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-actualizar-tabla:hover {
+    background-color: #0087d1;
+}
+
+.badge-estado {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-block;
+    text-align: center;
+}
+
+.estado-pendiente, .estado-pendiente_pago { background-color: #eef2ff; color: #1e3cff; }
+.estado-pagado { background-color: #ebf8ff; color: #2b6cb0; }
+.estado-enviado { background-color: #e6fffa; color: #319795; }
+.estado-entregado { background-color: #f0fff4; color: #38a169; }
+.estado-cancelado { background-color: #fff5f5; color: #e53e3e; }
