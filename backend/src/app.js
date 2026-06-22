@@ -1,4 +1,6 @@
 require('dotenv').config();
+const { createToken } = require('./utils/security');
+const jwt = require('jsonwebtoken');
 const adminRoutes = require('./routes/admin.routes');
 const express = require('express');
 const cors = require('cors');
@@ -39,6 +41,32 @@ app.get('/api/debug-secret', (req, res) => {
         ultimos3: secret.substring(secret.length - 3),
         timestamp: new Date().toISOString()
     });
+});
+
+app.get('/api/debug-roundtrip', (req, res) => {
+    try {
+        const secretAlFirmar = process.env.JWT_SECRET;
+        const tokenDePrueba = createToken({ id: '999', email: 'test@test.com', nombre: 'Test', rol: 'admin' });
+        const secretAlVerificar = process.env.JWT_SECRET;
+
+        let resultadoVerify;
+        try {
+            const decoded = jwt.verify(tokenDePrueba, process.env.JWT_SECRET);
+            resultadoVerify = { ok: true, decoded };
+        } catch (e) {
+            resultadoVerify = { ok: false, error: e.name, mensaje: e.message };
+        }
+
+        res.json({
+            secretAlFirmar_longitud: secretAlFirmar.length,
+            secretAlVerificar_longitud: secretAlVerificar.length,
+            secretsIguales: secretAlFirmar === secretAlVerificar,
+            tokenGenerado: tokenDePrueba,
+            resultadoVerify
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message, stack: error.stack });
+    }
 });
 
 module.exports = app;
