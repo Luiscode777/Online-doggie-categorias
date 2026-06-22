@@ -69,4 +69,35 @@ app.get('/api/debug-roundtrip', (req, res) => {
     }
 });
 
+// AGREGAR a src/app.js, junto a las otras rutas debug
+
+app.get('/api/debug-verify-real', (req, res) => {
+    try {
+        const authHeader = req.headers.authorization;
+        if (!authHeader) {
+            return res.json({ error: 'No llegó header Authorization' });
+        }
+
+        const token = authHeader.split(' ')[1]?.trim();
+
+        res.json({
+            headerCompleto_longitud: authHeader.length,
+            tokenExtraido_longitud: token ? token.length : 0,
+            tokenExtraido_primeros20: token ? token.substring(0, 20) : null,
+            tokenExtraido_ultimos20: token ? token.substring(token.length - 20) : null,
+            secretEnEsteMomento_longitud: process.env.JWT_SECRET.length,
+            resultado: (() => {
+                try {
+                    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+                    return { ok: true, decoded };
+                } catch (e) {
+                    return { ok: false, error: e.name, mensaje: e.message };
+                }
+            })()
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = app;
