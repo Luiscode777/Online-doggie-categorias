@@ -2,7 +2,7 @@
 // CONFIGURACIÓN GLOBAL Y AUTENTICACIÓN
 // ==========================================================================
 // CENTRALIZACIÓN DE LA API: Cambia esta URL cuando desees apuntar a producción (Render)
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "https://online-doggie-categorias.onrender.com/api";
 
 // Usamos el token global ya declarado en el HTML o lo recuperamos de forma segura
 if (!window.token) {
