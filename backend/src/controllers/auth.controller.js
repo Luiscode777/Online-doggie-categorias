@@ -148,12 +148,21 @@ exports.login = async (req, res) => {
             return res.status(401).json({ mensaje: "Contraseña incorrecta" });
         }
 
+        // === LOG TEMPORAL DE DIAGNÓSTICO — BORRAR DESPUÉS ===
+        const crypto = require('crypto');
+        const secretVistoAqui = process.env.JWT_SECRET || '';
+        console.log('[DEBUG LOGIN] JWT_SECRET hash en auth.controller.js:', crypto.createHash('sha256').update(secretVistoAqui).digest('hex'));
+        console.log('[DEBUG LOGIN] JWT_SECRET longitud en auth.controller.js:', secretVistoAqui.length);
+
         const token = createToken({
             id: usuario.id,
             email: usuario.email,
             nombre: usuario.nombre,
             rol: usuario.rol
         });
+
+        console.log('[DEBUG LOGIN] Token generado hash:', crypto.createHash('sha256').update(token).digest('hex'));
+        // === FIN LOG TEMPORAL ===
 
         return res.json({
             mensaje: "Login exitoso",
