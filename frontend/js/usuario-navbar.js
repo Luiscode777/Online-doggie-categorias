@@ -30,7 +30,7 @@ async function cargarUsuario() {
     const esPaginaPrivada = paginasPrivadas.some(pagina => currentPath.includes(pagina));
 
     try {
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/auth/perfil", {
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/auth/perfil", {
             headers: {
                 "Authorization": `Bearer ${token}`
             }

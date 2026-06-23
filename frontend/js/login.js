@@ -30,7 +30,7 @@ async function loginUsuario(e) {
     }
 
     try {
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/auth/login", {
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
@@ -98,7 +98,7 @@ async function recuperarPassword(e) {
     }
 
     try {
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/auth/recuperar", {
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/auth/recuperar", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email })
@@ -133,7 +133,7 @@ async function verificar2FA(e) {
     }
 
     try {
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/auth/verificar-2fa", {
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/auth/verificar-2fa", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ codigo, tokenTemporal })

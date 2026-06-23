@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function cargarPedidosDelUsuario() {
     try {
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/pedidos/mis-pedidos", {
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/pedidos/mis-pedidos", {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token
@@ -77,7 +77,7 @@ async function marcarComoRecibido(pedidoId) {
     if (!confirm("¿Confirmas que ya tienes el pedido en tus manos?")) return;
 
     try {
-        const respuesta = await fetch(`https://online-doggie-backend-production.up.railway.app/api/pedidos/${pedidoId}/recibido`, {
+        const respuesta = await fetch(`https://online-doggie-categorias.onrender.com/api/pedidos/${pedidoId}/recibido`, {
             method: "PATCH",
             headers: {
                 "Authorization": "Bearer " + token

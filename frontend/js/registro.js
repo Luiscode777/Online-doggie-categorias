@@ -38,7 +38,7 @@ async function registrarUsuario(e) {
     try {
         if (boton) boton.disabled = true;
 
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/auth/registro", {
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/auth/registro", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -92,7 +92,7 @@ async function verificarCuenta(e) {
     try {
         if (boton) boton.disabled = true;
 
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/auth/verificarCuenta", {
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/auth/verificarCuenta", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

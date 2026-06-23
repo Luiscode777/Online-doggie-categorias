@@ -10,7 +10,7 @@ if (!token) {
 
 async function verificarSesion() {
     try {
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/auth/perfil", {
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/auth/perfil", {
             headers: {
                 "Authorization": "Bearer " + token
             }

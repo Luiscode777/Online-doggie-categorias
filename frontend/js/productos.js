@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 /* RENDERS Y PETICIONES PRINCIPALES */
 async function cargarProductos() {
     try {
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/productos");
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/productos");
         const productos = await respuesta.json();
 
         const contenedor = document.getElementById("lista-productos");
@@ -24,7 +24,7 @@ async function cargarProductos() {
 
            
             try {
-                const valRes = await fetch(`https://online-doggie-backend-production.up.railway.app/api/productos/${producto.id}/valoracion`);
+                const valRes = await fetch(`https://online-doggie-categorias.onrender.com/api/productos/${producto.id}/valoracion`);
                 const valData = await valRes.json();
                 
                 promedio = parseFloat(valData.promedio) || 0;
@@ -42,7 +42,7 @@ async function cargarProductos() {
             div.setAttribute("data-categoria", (producto.categoria || "").toLowerCase());
 
             div.innerHTML = `
-                <img src="https://online-doggie-backend-production.up.railway.app/uploads/${producto.imagen}" alt="${producto.nombre}">
+                <img src="https://online-doggie-categorias.onrender.com/uploads/${producto.imagen}" alt="${producto.nombre}">
                 <h3>${producto.nombre}</h3>
                 <p class="descripcion">${producto.descripcion || ""}</p>
 
@@ -108,7 +108,7 @@ async function enviarValoracion(productoId) {
     }
 
     try {
-        const respuesta = await fetch(`https://online-doggie-backend-production.up.railway.app/api/productos/${productoId}/valorar`, {
+        const respuesta = await fetch(`https://online-doggie-categorias.onrender.com/api/productos/${productoId}/valorar`, {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + token,
@@ -132,7 +132,7 @@ async function enviarValoracion(productoId) {
         mostrarToast("Valoración registrada correctamente", "success");
 
         
-        const valRes = await fetch(`https://online-doggie-backend-production.up.railway.app/api/productos/${productoId}/valoracion`);
+        const valRes = await fetch(`https://online-doggie-categorias.onrender.com/api/productos/${productoId}/valoracion`);
         const valData = await valRes.json();
 
         const promedio = parseFloat(valData.promedio) || 0;

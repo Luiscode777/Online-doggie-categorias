@@ -188,7 +188,7 @@ function actualizarMiniCarrito() {
 
         const rutaImagen = (producto.imagen && producto.imagen.startsWith("http"))
             ? producto.imagen
-            : `https://online-doggie-backend-production.up.railway.app/uploads/${producto.imagen}`;
+            : `https://online-doggie-categorias.onrender.com/uploads/${producto.imagen}`;
 
         contenedor.innerHTML += `
             <div class="mini-item">
@@ -242,7 +242,7 @@ async function finalizarCompra() {
         
         mostrarToast("Debes iniciar sesión para comprar", "error");
         setTimeout(() => {
-            window.location.href = "login.html"; // Ajustado a minúsculas para compatibilidad con Railway
+            window.location.href = "login.html";
         }, 2000);
         return;
     }
@@ -256,7 +256,7 @@ async function finalizarCompra() {
     }
 
     try {
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/pedidos", {
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/pedidos", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

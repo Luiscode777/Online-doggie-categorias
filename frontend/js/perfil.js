@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 /* CARGAR PERFIL */
 async function cargarPerfil() {
     try {
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/auth/perfil", {
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/auth/perfil", {
             headers: { "Authorization": "Bearer " + token }
         });
 
@@ -71,7 +71,7 @@ async function cargarPerfil() {
 /* HISTORIAL DE COMPRAS */
 async function cargarHistorial() {
     try {
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/pedidos/historial", {
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/pedidos/historial", {
             headers: { "Authorization": "Bearer " + token }
         });
 
@@ -158,7 +158,7 @@ async function editarPerfil(e) {
     }
 
     try {
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/auth/perfil", {
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/auth/perfil", {
             method: "PUT",
             headers: {
                 "Authorization": "Bearer " + token,
@@ -203,7 +203,7 @@ async function cambiarPassword(e) {
     }
 
     try {
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/auth/cambiar-password", {
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/auth/cambiar-password", {
             method: "PUT",
             headers: {
                 "Authorization": "Bearer " + token,
@@ -246,7 +246,7 @@ async function guardarDireccion() {
     const email = document.getElementById("edit-email")?.value.trim();
 
     try {
-        const respuesta = await fetch("https://online-doggie-backend-production.up.railway.app/api/auth/perfil", {
+        const respuesta = await fetch("https://online-doggie-categorias.onrender.com/api/auth/perfil", {
             method: "PUT",
             headers: {
                 "Authorization": "Bearer " + token,
