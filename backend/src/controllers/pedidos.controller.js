@@ -319,6 +319,10 @@ exports.obtenerTodosPedidos = async (req, res) => {
         return res.json(listaPedidos);
 
     } catch (error) {
+        // === LOG TEMPORAL DE DIAGNÓSTICO — BORRAR DESPUÉS ===
+        console.error('[DEBUG PEDIDOS] Error completo en obtenerTodosPedidos:', error);
+        console.error('[DEBUG PEDIDOS] Mensaje:', error.message);
+        console.error('[DEBUG PEDIDOS] Stack:', error.stack);
         return res.status(500).json({ error: error.message });
     }
 };
