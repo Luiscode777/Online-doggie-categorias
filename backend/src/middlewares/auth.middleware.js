@@ -15,6 +15,10 @@ const verificarToken = (req, res, next) => {
 
         const token = authHeader.split(' ')[1]?.trim();
 
+        const crypto2 = require('crypto');
+        console.log('[DEBUG AUTH] TOKEN HASH (recibido):', crypto2.createHash('sha256').update(token).digest('hex'));
+        console.log('[DEBUG AUTH] TOKEN longitud (recibido):', token.length);
+
         const secret = process.env.JWT_SECRET || '';
         const hash = crypto.createHash('sha256').update(secret).digest('hex');
         console.log('[DEBUG AUTH] JWT_SECRET está definido:', !!process.env.JWT_SECRET);

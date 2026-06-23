@@ -164,4 +164,28 @@ app.get('/api/debug-middleware-real', verificarAdmin, (req, res) => {
     });
 });
 
+// === NUEVO: recibe el token por query string, evitando el header Authorization por completo ===
+app.get('/api/debug-verify-querystring', (req, res) => {
+    const crypto3 = require('crypto');
+    const token = req.query.token;
+    if (!token) return res.json({ error: 'falta ?token=' });
+
+    const secret = process.env.JWT_SECRET;
+    let resultado;
+    try {
+        const decoded = jwt.verify(token, secret);
+        resultado = { ok: true, decoded };
+    } catch (e) {
+        resultado = { ok: false, error: e.name, mensaje: e.message };
+    }
+
+    res.json({
+        processId: PROCESS_ID,
+        tokenRecibido_longitud: token.length,
+        tokenRecibido_hash: crypto3.createHash('sha256').update(token).digest('hex'),
+        secret_hash: crypto3.createHash('sha256').update(secret).digest('hex'),
+        resultado
+    });
+});
+
 module.exports = app;
