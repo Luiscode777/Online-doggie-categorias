@@ -35,13 +35,16 @@ app.get('/', (req, res) => {
 
 // === RUTA TEMPORAL DE DIAGNÓSTICO — BORRAR DESPUÉS ===
 app.get('/api/debug-secret', (req, res) => {
+    const crypto = require('crypto');
     const secret = process.env.JWT_SECRET || '';
+    const hash = crypto.createHash('sha256').update(secret).digest('hex');
     res.json({
         processId: PROCESS_ID,
         existe: !!process.env.JWT_SECRET,
         longitud: secret.length,
         primeros3: secret.substring(0, 3),
         ultimos3: secret.substring(secret.length - 3),
+        hashCompleto: hash,
         timestamp: new Date().toISOString()
     });
 });

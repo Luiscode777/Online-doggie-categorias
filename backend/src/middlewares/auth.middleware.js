@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 require('dotenv').config();
 
 const verificarToken = (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;
 
-        // --- LOG TEMPORAL 1: ¿llega el header? ---
         console.log('[DEBUG AUTH] authHeader recibido:', authHeader ? authHeader.substring(0, 30) + '...' : 'NO LLEGÓ');
 
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -15,9 +15,11 @@ const verificarToken = (req, res, next) => {
 
         const token = authHeader.split(' ')[1]?.trim();
 
-        // --- LOG TEMPORAL 2: ¿existe JWT_SECRET en este proceso? ---
+        const secret = process.env.JWT_SECRET || '';
+        const hash = crypto.createHash('sha256').update(secret).digest('hex');
         console.log('[DEBUG AUTH] JWT_SECRET está definido:', !!process.env.JWT_SECRET);
-        console.log('[DEBUG AUTH] JWT_SECRET longitud:', process.env.JWT_SECRET ? process.env.JWT_SECRET.length : 0);
+        console.log('[DEBUG AUTH] JWT_SECRET longitud:', secret.length);
+        console.log('[DEBUG AUTH] JWT_SECRET HASH:', hash);
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.usuario = decoded;
@@ -26,7 +28,6 @@ const verificarToken = (req, res, next) => {
 
         return next();
     } catch (error) {
-        // --- LOG TEMPORAL 3: el motivo EXACTO del fallo ---
         console.error('[DEBUG AUTH] jwt.verify falló. Nombre del error:', error.name);
         console.error('[DEBUG AUTH] Mensaje del error:', error.message);
         return res.status(401).json({ mensaje: "Token inválido" });
