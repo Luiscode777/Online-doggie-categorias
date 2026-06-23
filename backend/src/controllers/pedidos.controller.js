@@ -132,7 +132,7 @@ exports.obtenerHistorial = async (req, res) => {
             `SELECT
                 p.id AS pedido_id,
                 p.total,
-                p.fecha_creacion,
+                p.fecha,
                 p.estado,
                 d.producto_id,
                 pr.nombre,
@@ -153,7 +153,7 @@ exports.obtenerHistorial = async (req, res) => {
                 pedidos[row.pedido_id] = {
                     pedido_id: row.pedido_id,
                     total: row.total,
-                    fecha: row.fecha_creacion,
+                    fecha: row.fecha,
                     estado: row.estado,
                     productos: []
                 };
@@ -265,7 +265,7 @@ exports.obtenerTodosPedidos = async (req, res) => {
                 p.id AS pedido_id,
                 p.total,
                 p.estado,
-                p.fecha_creacion,
+                p.fecha,
                 u.nombre AS usuario_nombre,
                 u.email,
                 d.cantidad,
@@ -295,7 +295,7 @@ exports.obtenerTodosPedidos = async (req, res) => {
                 pedidos[row.pedido_id] = {
                     id: row.pedido_id,
                     total: row.total,
-                    fecha: row.fecha_creacion,
+                    fecha: row.fecha,
                     estado: row.estado,
                     usuario: row.usuario_nombre,
                     email: row.email,
@@ -319,10 +319,6 @@ exports.obtenerTodosPedidos = async (req, res) => {
         return res.json(listaPedidos);
 
     } catch (error) {
-        // === LOG TEMPORAL DE DIAGNÓSTICO — BORRAR DESPUÉS ===
-        console.error('[DEBUG PEDIDOS] Error completo en obtenerTodosPedidos:', error);
-        console.error('[DEBUG PEDIDOS] Mensaje:', error.message);
-        console.error('[DEBUG PEDIDOS] Stack:', error.stack);
         return res.status(500).json({ error: error.message });
     }
 };
