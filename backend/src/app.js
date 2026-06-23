@@ -136,6 +136,9 @@ app.get('/api/debug-login-roundtrip', async (req, res) => {
             rol: usuario.rol
         });
 
+        const crypto4 = require('crypto');
+        const tokenHashAlGenerar = crypto4.createHash('sha256').update(token).digest('hex');
+
         let resultadoVerify;
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -147,6 +150,7 @@ app.get('/api/debug-login-roundtrip', async (req, res) => {
         res.json({
             tiposDeDatos: tipos,
             tokenGenerado: token,
+            tokenHashAlGenerar,
             resultadoVerify
         });
     } catch (error) {
