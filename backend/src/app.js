@@ -1,4 +1,6 @@
 require('dotenv').config();
+const PROCESS_ID = Math.random().toString(36).substring(2, 10) + '-' + Date.now();
+console.log('[DEBUG AUTH] Proceso arrancado con ID:', PROCESS_ID);
 const { createToken } = require('./utils/security');
 const jwt = require('jsonwebtoken');
 const adminRoutes = require('./routes/admin.routes');
@@ -35,6 +37,7 @@ app.get('/', (req, res) => {
 app.get('/api/debug-secret', (req, res) => {
     const secret = process.env.JWT_SECRET || '';
     res.json({
+        processId: PROCESS_ID,
         existe: !!process.env.JWT_SECRET,
         longitud: secret.length,
         primeros3: secret.substring(0, 3),
@@ -81,6 +84,7 @@ app.get('/api/debug-verify-real', (req, res) => {
         const token = authHeader.split(' ')[1]?.trim();
 
         res.json({
+            processId: PROCESS_ID,
             headerCompleto_longitud: authHeader.length,
             tokenExtraido_longitud: token ? token.length : 0,
             tokenExtraido_primeros20: token ? token.substring(0, 20) : null,
@@ -145,6 +149,16 @@ app.get('/api/debug-login-roundtrip', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message, stack: error.stack });
     }
+});
+
+// === NUEVO: ruta protegida por el middleware REAL, para aislar si el bug vive ahí ===
+const { verificarAdmin } = require('./middlewares/auth.middleware');
+app.get('/api/debug-middleware-real', verificarAdmin, (req, res) => {
+    res.json({
+        processId: PROCESS_ID,
+        ok: true,
+        usuario: req.usuario
+    });
 });
 
 module.exports = app;
