@@ -100,4 +100,51 @@ app.get('/api/debug-verify-real', (req, res) => {
     }
 });
 
+// === NUEVO: replica el login real contra la DB y verifica en la misma petición ===
+app.get('/api/debug-login-roundtrip', async (req, res) => {
+    try {
+        const pool = require('./config/db');
+
+        const result = await pool.query(
+            "SELECT * FROM usuarios WHERE email = $1",
+            ['Admin@gmail.com']
+        );
+
+        if (!result.rows.length) {
+            return res.json({ error: 'usuario no encontrado' });
+        }
+
+        const usuario = result.rows[0];
+
+        // Mostramos los tipos de dato reales que vienen de la DB
+        const tipos = {};
+        for (const key of ['id', 'email', 'nombre', 'rol']) {
+            tipos[key] = { valor: usuario[key], tipo: typeof usuario[key] };
+        }
+
+        const token = createToken({
+            id: usuario.id,
+            email: usuario.email,
+            nombre: usuario.nombre,
+            rol: usuario.rol
+        });
+
+        let resultadoVerify;
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            resultadoVerify = { ok: true, decoded };
+        } catch (e) {
+            resultadoVerify = { ok: false, error: e.name, mensaje: e.message };
+        }
+
+        res.json({
+            tiposDeDatos: tipos,
+            tokenGenerado: token,
+            resultadoVerify
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message, stack: error.stack });
+    }
+});
+
 module.exports = app;
